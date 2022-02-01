@@ -1,0 +1,1 @@
+export 'presentation/favorites_page.dart';
