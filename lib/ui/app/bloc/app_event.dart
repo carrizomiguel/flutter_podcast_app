@@ -13,6 +13,12 @@ class AppPageChangedTo extends AppEvent {
   final AppPageStatus page;
 }
 
+class AppRouteChangedTo extends AppEvent {
+  const AppRouteChangedTo({required this.route});
+
+  final AppRouteStatus route;
+}
+
 class AppPodcastSelected extends AppEvent {
   const AppPodcastSelected({required this.podcast});
 

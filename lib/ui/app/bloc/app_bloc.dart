@@ -10,6 +10,7 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc() : super(const AppState()) {
     on<AppPageChangedTo>(_onPageChangedTo);
+    on<AppRouteChangedTo>(_onRouteChangedTo);
     on<AppPodcastSelected>(_onPodcastSelected);
     on<AppEpisodeSelected>(_onEpisodeSelected);
     on<AppEpisodePaused>(_onEpisodePaused);
@@ -23,6 +24,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) {
     emit(state.copyWith(
       pageStatus: event.page,
+    ));
+  }
+
+  void _onRouteChangedTo(
+    AppRouteChangedTo event,
+    Emitter emit,
+  ) {
+    emit(state.copyWith(
+      routeStatus: event.route,
     ));
   }
 
@@ -54,13 +64,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppEpisodePaused event,
     Emitter emit,
   ) {
-    // ignore: avoid_print
-    print('isPaused ===> ${event.isPaused}');
     event.isPaused ? audioPlayer.pause() : audioPlayer.resume();
     emit(state.copyWith(
-      episodeStatus: event.isPaused
-          ? EpisodeStatus.pause
-          : EpisodeStatus.playing,
+      episodeStatus:
+          event.isPaused ? EpisodeStatus.pause : EpisodeStatus.playing,
     ));
   }
 }

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:podcast_app/ui/app/bloc/app_bloc.dart';
@@ -25,97 +23,116 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
   int duration = 1;
   int position = 0;
 
-  double percentage = 0.0;
-
   @override
   void initState() {
     super.initState();
     widget.appBloc.audioPlayer.onDurationChanged.listen((event) {
-      setState(() {
-        duration = event.inSeconds;
-      });
+      if (mounted) {
+        setState(() {
+          duration = event.inSeconds;
+        });
+      }
     });
     widget.appBloc.audioPlayer.onAudioPositionChanged.listen((event) {
-      setState(() {
-        position = event.inSeconds;
-      });
+      if (mounted) {
+        setState(() {
+          position = event.inSeconds;
+        });
+      }
     });
-    // percentage = (position) / duration;
+  }
+
+  @override
+  void dispose() {
+    widget.appBloc.audioPlayer.onDurationChanged.drain();
+    widget.appBloc.audioPlayer.onAudioPositionChanged.drain();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-      ),
-      width: screenWidth,
+    return GestureDetector(
+      onTap: () {
+        context.read<AppBloc>().add(const AppRouteChangedTo(
+              route: AppRouteStatus.player,
+            ));
+      },
       child: Container(
-        margin: const EdgeInsets.only(
-          bottom: 10,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
         ),
-        width: double.infinity,
-        child: Card(
-          elevation: 5,
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    widget.episode.image,
-                    height: 50,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.episode.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      LinearProgressIndicator(
-                        color: kSecondaryColor,
-                        backgroundColor: Colors.grey.shade200,
-                        value: (position) / duration,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                BlocBuilder<AppBloc, AppState>(
-                  builder: (context, state) {
-                    final isPaused = state.episodeStatus == EpisodeStatus.pause;
-                    return IconButton(
-                      onPressed: () {
-                        context.read<AppBloc>().add(
-                              AppEpisodePaused(
-                                isPaused: !isPaused,
-                              ),
-                            );
-                      },
-                      icon: Icon(
-                        isPaused ? Iconsax.play : Iconsax.pause,
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
+        width: screenWidth,
+        child: Container(
+          margin: const EdgeInsets.only(
+            bottom: 10,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+          width: double.infinity,
+          child: Card(
+            elevation: 5,
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                children: [
+                  Hero(
+                    tag: 'from-footer-player',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        widget.episode.image,
+                        height: 50,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.episode.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        LinearProgressIndicator(
+                          color: kSecondaryColor,
+                          backgroundColor: Colors.grey.shade200,
+                          value: (position) / duration,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  BlocBuilder<AppBloc, AppState>(
+                    builder: (context, state) {
+                      final isPaused =
+                          state.episodeStatus == EpisodeStatus.pause;
+                      return IconButton(
+                        onPressed: () {
+                          context.read<AppBloc>().add(
+                                AppEpisodePaused(
+                                  isPaused: !isPaused,
+                                ),
+                              );
+                        },
+                        icon: Icon(
+                          isPaused ? Iconsax.play : Iconsax.pause,
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
         ),
       ),
