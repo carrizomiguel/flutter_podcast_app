@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:podcast_app/ui/app/bloc/app_bloc.dart';
@@ -21,41 +20,28 @@ class FooterPlayerApp extends StatefulWidget {
 }
 
 class _FooterPlayerAppState extends State<FooterPlayerApp> {
-  late AudioPlayer audioPlayer;
+  int duration = 0;
+  int position = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    initPlayer();
-    print('init state ===> IN WIDGET');
-  }
-
-  void initPlayer() async {
-    audioPlayer = AudioPlayer();
-    await audioPlayer.stop();
-    await audioPlayer.play(widget.episode.audio);
-    print('init player ===> IN FUNCTION');
-  }
-
-  void pausePlayer(bool isPaused) async {
-    if (isPaused) {
-      await audioPlayer.pause();
-      return;
-    }
-    await audioPlayer.resume();
-  }
+  double percentage = 0.0;
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final appBloc = context.read<AppBloc>();
-    final status = appBloc.state.episodeStatus;
 
-    bool isPaused() {
-      final condition = status == EpisodeStatus.pause;
-      pausePlayer(condition);
-      return condition;
-    }
+    final appBloc = context.read<AppBloc>();
+
+    appBloc.audioPlayer.onDurationChanged.listen((event) {
+      setState(() {
+        duration = event.inSeconds;
+      });
+    });
+    appBloc.audioPlayer.onAudioPositionChanged.listen((event) {
+      setState(() {
+        position = event.inSeconds;
+      });
+    });
+    percentage = (position) / duration;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -98,23 +84,28 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
                       LinearProgressIndicator(
                         color: kSecondaryColor,
                         backgroundColor: Colors.grey.shade200,
-                        value: widget.episode.audioLengthSec.toDouble(),
+                        value: percentage,
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {
-                    appBloc.add(AppEpisodePaused(
-                      isPaused: !isPaused(),
-                    ));
+                BlocBuilder<AppBloc, AppState>(
+                  builder: (context, state) {
+                    final isPaused = state.episodeStatus == EpisodeStatus.pause;
+                    return IconButton(
+                      onPressed: () {
+                        context.read<AppBloc>().add(
+                              AppEpisodePaused(
+                                isPaused: !isPaused,
+                              ),
+                            );
+                      },
+                      icon: Icon(
+                        isPaused ? Iconsax.play : Iconsax.pause,
+                      ),
+                    );
                   },
-                  icon: Icon(
-                    isPaused()
-                        ? Iconsax.play
-                        : Iconsax.pause,
-                  ),
                 )
               ],
             ),

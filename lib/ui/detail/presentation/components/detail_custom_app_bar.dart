@@ -30,10 +30,12 @@ class DetailCustomAppBar extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Text(
-            publisher,
-            style: const TextStyle(
-              color: Colors.black,
+          Expanded(
+            child: Text(
+              publisher,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
             ),
           ),
           const Spacer(),

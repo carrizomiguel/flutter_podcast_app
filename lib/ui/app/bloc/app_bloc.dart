@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:podcast_app/ui/detail/models/episodes_model.dart';
@@ -13,6 +14,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppEpisodeSelected>(_onEpisodeSelected);
     on<AppEpisodePaused>(_onEpisodePaused);
   }
+
+  AudioPlayer audioPlayer = AudioPlayer();
 
   void _onPageChangedTo(
     AppPageChangedTo event,
@@ -35,20 +38,25 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   void _onEpisodeSelected(
     AppEpisodeSelected event,
     Emitter emit,
-  ) {
+  ) async {
     emit(state.copyWith(
       episodeStatus: EpisodeStatus.empty,
     ));
+    audioPlayer.release();
     emit(state.copyWith(
       episode: event.episode,
       episodeStatus: EpisodeStatus.playing,
     ));
+    audioPlayer.play(event.episode.audio);
   }
 
   void _onEpisodePaused(
     AppEpisodePaused event,
     Emitter emit,
   ) {
+    // ignore: avoid_print
+    print('isPaused ===> ${event.isPaused}');
+    event.isPaused ? audioPlayer.pause() : audioPlayer.resume();
     emit(state.copyWith(
       episodeStatus: event.isPaused
           ? EpisodeStatus.pause

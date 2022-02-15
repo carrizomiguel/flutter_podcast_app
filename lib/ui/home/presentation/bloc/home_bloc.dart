@@ -27,14 +27,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ok: (list) {
         for (var selected in list) {
           selected.podcasts.removeWhere(
-            (e) => e.id == '4147be1001cc4254bc2d660ae4cad6c4' ||
+            (e) =>
+                e.id == '4147be1001cc4254bc2d660ae4cad6c4' ||
                 e.id == 'd620156577fe4408972a29aa2675e628',
           );
         }
         selectedPodcasts = list;
         emit(HomeSuccess());
       },
-      err: (_) => emit(HomeFailed()),
+      err: (failure) {
+        // ignore: avoid_print
+        print('home failure ===> $failure');
+        emit(HomeFailed());
+      },
     );
   }
 }

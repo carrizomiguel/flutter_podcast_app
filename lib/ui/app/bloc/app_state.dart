@@ -39,6 +39,7 @@ class AppState extends Equatable {
     AppRouteStatus? routeStatus,
     EpisodesModel? episode,
     EpisodeStatus? episodeStatus,
+    AudioPlayer? audioPlayer,
   }) {
     return AppState(
       pageStatus: pageStatus ?? this.pageStatus,

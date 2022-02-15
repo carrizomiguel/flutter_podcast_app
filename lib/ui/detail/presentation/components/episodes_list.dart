@@ -15,12 +15,22 @@ class EpisodesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildListDelegate(
-        List.generate(
-          episodes.length,
-          (index) => EpisodesElement(
-            episode: episodes[index],
+        [
+          ...List.generate(
+            episodes.length,
+            (index) => EpisodesElement(
+              episode: episodes[index],
+            ),
           ),
-        ),
+          BlocBuilder<AppBloc, AppState>(
+            builder: (context, state) {
+              if (state.episodeStatus != EpisodeStatus.empty) {
+                return const SizedBox(height: 100);
+              }
+              return Container();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -43,8 +53,8 @@ class EpisodesElement extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<AppBloc>().add(AppEpisodeSelected(
-          episode: episode,
-        ));
+              episode: episode,
+            ));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(
