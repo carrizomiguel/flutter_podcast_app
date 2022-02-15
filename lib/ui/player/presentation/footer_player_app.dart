@@ -52,71 +52,68 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
         horizontal: 15,
       ),
       width: screenWidth,
-      child: Container(
+      child: Card(
+        elevation: 5,
         margin: const EdgeInsets.only(
           bottom: 10,
         ),
-        width: double.infinity,
-        child: Card(
-          elevation: 5,
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    widget.episode.image,
-                    height: 50,
-                  ),
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  widget.episode.image,
+                  height: 50,
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.episode.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.episode.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
-                      const SizedBox(height: 10),
-                      LinearProgressIndicator(
-                        color: kSecondaryColor,
-                        backgroundColor: Colors.grey.shade200,
-                        value: (position) / duration,
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 10),
+                    LinearProgressIndicator(
+                      color: kSecondaryColor,
+                      backgroundColor: Colors.grey.shade200,
+                      value: (position) / duration,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                BlocBuilder<AppBloc, AppState>(
-                  builder: (context, state) {
-                    final isPaused = state.episodeStatus == EpisodeStatus.pause;
-                    return IconButton(
-                      onPressed: () {
-                        context.read<AppBloc>().add(
-                              AppEpisodePaused(
-                                isPaused: !isPaused,
-                              ),
-                            );
-                      },
-                      icon: Icon(
-                        isPaused ? Iconsax.play : Iconsax.pause,
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
+              ),
+              const SizedBox(width: 10),
+              BlocBuilder<AppBloc, AppState>(
+                builder: (context, state) {
+                  final isPaused = state.episodeStatus == EpisodeStatus.pause;
+                  return IconButton(
+                    onPressed: () {
+                      context.read<AppBloc>().add(
+                            AppEpisodePaused(
+                              isPaused: !isPaused,
+                            ),
+                          );
+                    },
+                    icon: Icon(
+                      isPaused ? Iconsax.play : Iconsax.pause,
+                    ),
+                  );
+                },
+              )
+            ],
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
     );
