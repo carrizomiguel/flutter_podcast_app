@@ -62,6 +62,7 @@ class AppContent extends StatelessWidget {
                 if (state.episodeStatus != EpisodeStatus.empty) {
                   return FooterPlayerApp(
                     episode: state.episode!,
+                    appBloc: context.read<AppBloc>(),
                   );
                 }
                 return Container();

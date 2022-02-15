@@ -11,37 +11,41 @@ class FooterPlayerApp extends StatefulWidget {
   const FooterPlayerApp({
     Key? key,
     required this.episode,
+    required this.appBloc,
   }) : super(key: key);
 
   final EpisodesModel episode;
+  final AppBloc appBloc;
 
   @override
   State<FooterPlayerApp> createState() => _FooterPlayerAppState();
 }
 
 class _FooterPlayerAppState extends State<FooterPlayerApp> {
-  int duration = 0;
+  int duration = 1;
   int position = 0;
 
   double percentage = 0.0;
 
   @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    final appBloc = context.read<AppBloc>();
-
-    appBloc.audioPlayer.onDurationChanged.listen((event) {
+  void initState() {
+    super.initState();
+    widget.appBloc.audioPlayer.onDurationChanged.listen((event) {
       setState(() {
         duration = event.inSeconds;
       });
     });
-    appBloc.audioPlayer.onAudioPositionChanged.listen((event) {
+    widget.appBloc.audioPlayer.onAudioPositionChanged.listen((event) {
       setState(() {
         position = event.inSeconds;
       });
     });
-    percentage = (position) / duration;
+    // percentage = (position) / duration;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -84,7 +88,7 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
                       LinearProgressIndicator(
                         color: kSecondaryColor,
                         backgroundColor: Colors.grey.shade200,
-                        value: percentage,
+                        value: (position) / duration,
                       ),
                     ],
                   ),
