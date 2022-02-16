@@ -1,16 +1,25 @@
-# podcast_app
+## Recipe App
 
-A new Flutter project.
+Flutter Bloc Application with Clean Architecture
 
-## Getting Started
+## Development Setup
+Clone the repository and run the following commands:
+```
+flutter pub get
+flutter run
+```
 
-This project is a starting point for a Flutter application.
+## Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+### App Pages
+<img src="assets/screenshots/home.png" height="400"/> <img src="assets/screenshots/explore.png" height="400"/>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Podcasts Pages
+<img src="assets/screenshots/detail.png" height="400"/> <img src="assets/screenshots/footer_player.png" height="400"/> <img src="assets/screenshots/player.png" height="400"/>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Links
+### Api
+* [Listen Notes](https://www.listennotes.com/api/)
+### Design
+* [Sajon](https://dribbble.com/shots/17339237-Podcast-App-Design/attachments/12457393?mode=media)
+
