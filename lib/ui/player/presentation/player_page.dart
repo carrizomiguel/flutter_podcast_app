@@ -39,6 +39,7 @@ class PlayerContent extends StatefulWidget {
 class _PlayerContentState extends State<PlayerContent> {
   Duration duration = const Duration(seconds: 1);
   Duration position = const Duration(seconds: 0);
+  Duration empty = const Duration(hours: -286, minutes: -53, seconds: -18);
 
   @override
   void initState() {
@@ -56,7 +57,8 @@ class _PlayerContentState extends State<PlayerContent> {
   _getDuration() async {
     double rawDuration = await widget.appBloc.audioPlayer.getDuration() / 1000;
     Duration parsedDurtion = Duration(seconds: (rawDuration).round());
-    if (mounted) {
+    final hasDuration = parsedDurtion.compareTo(empty) != 0 ? true : false;
+    if (mounted && hasDuration) {
       setState(() {
         duration = parsedDurtion;
       });
