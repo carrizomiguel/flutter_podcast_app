@@ -17,6 +17,7 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBloc = context.read<AppBloc>();
     return Hero(
       tag: model.id,
       child: Card(
@@ -34,6 +35,34 @@ class CardItem extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
+                    // Expanded(
+                    //   flex: 4,
+                    //   child: GestureDetector(
+                    //     onTap: () => showModalBottomSheet(
+                    //       context: context,
+                    //       builder: (_) {
+                    //         appBloc.add(AppPodcastSelected(
+                    //           podcast: model,
+                    //         ));
+                    //         return DetailPage(
+                    //           idPodcast: model.id,
+                    //         );
+                    //       },
+                    //     ),
+                    //     child: Container(
+                    //       padding: const EdgeInsets.all(10.0),
+                    //       child: const Icon(
+                    //         Iconsax.play,
+                    //         size: 20,
+                    //         color: Colors.white,
+                    //       ),
+                    //       decoration: const BoxDecoration(
+                    //         color: kPrimaryColor,
+                    //         shape: BoxShape.circle,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Expanded(
                       flex: 4,
                       child: OpenContainer(
@@ -41,7 +70,7 @@ class CardItem extends StatelessWidget {
                         middleColor: Colors.white,
                         transitionType: ContainerTransitionType.fadeThrough,
                         openBuilder: (_, action) {
-                          context.read<AppBloc>().add(AppPodcastSelected(
+                          appBloc.add(AppPodcastSelected(
                             podcast: model,
                           ));
                           return DetailPage(
@@ -96,76 +125,5 @@ class CardItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
-    // return OpenContainer(
-    //   openBuilder: (_, action) {
-    //     context.read<AppBloc>().add(AppPodcastSelected(
-    //       podcast: model,
-    //     ));
-    //     return const PlayerPage();
-    //   },
-    //   closedBuilder: (context, action) => Card(
-    //     elevation: 3,
-    //     child: SizedBox(
-    //       width: 170,
-    //       child: Column(
-    //         children: [
-    //           Image.network(
-    //             model.thumbnail,
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsets.symmetric(
-    //               vertical: 10,
-    //             ),
-    //             child: Row(
-    //               children: [
-    //                 Expanded(
-    //                   flex: 4,
-    //                   child: Container(
-    //                     padding: const EdgeInsets.all(10.0),
-    //                     child: const Icon(
-    //                       Iconsax.play,
-    //                       size: 20,
-    //                       color: Colors.white,
-    //                     ),
-    //                     decoration: const BoxDecoration(
-    //                       color: kPrimaryColor,
-    //                       shape: BoxShape.circle,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Expanded(
-    //                   flex: 6,
-    //                   child: Column(
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     mainAxisAlignment: MainAxisAlignment.center,
-    //                     children: [
-    //                       Text(
-    //                         model.title,
-    //                         maxLines: 1,
-    //                         overflow: TextOverflow.ellipsis,
-    //                         style: const TextStyle(
-    //                           fontWeight: FontWeight.bold,
-    //                           fontSize: 17,
-    //                         ),
-    //                       ),
-    //                       Text(
-    //                         model.publisher,
-    //                         maxLines: 1,
-    //                         overflow: TextOverflow.ellipsis,
-    //                         style: TextStyle(color: Colors.grey.shade500),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //     clipBehavior: Clip.hardEdge,
-    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    //   ),
-    // );
   }
 }
