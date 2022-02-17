@@ -56,7 +56,7 @@ class DetailContent extends StatelessWidget {
                   ),
                 ),
                 EpisodesList(
-                  episodes: podcast.episodes,
+                  episodes: podcast.episodes.reversed.toList(),
                 ),
               ],
             );
