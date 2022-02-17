@@ -1,7 +1,6 @@
 class Api {
   static const keyLabel = 'X-ListenAPI-Key';
-  // static const keyValue = 'YOUR_API_KEY_HERE';
-  static const keyValue = '63a3880d443542bab72464d45ae16b58';
+  static const keyValue = 'YOUR_API_KEY_HERE';
 
   static const authority = 'listen-api.listennotes.com';
   static const path = '/api/v2';
