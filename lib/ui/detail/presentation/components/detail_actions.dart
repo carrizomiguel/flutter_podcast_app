@@ -39,6 +39,16 @@ class DetailActions extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kPrimaryColor,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 70,
+                    vertical: 17,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
                 child: const Text(
                   'Play',
                   style: TextStyle(
@@ -46,30 +56,18 @@ class DetailActions extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  primary: kPrimaryColor,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 70,
-                    vertical: 17,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  )
-                ),
               ),
               Positioned(
                 bottom: -5,
                 right: 5,
                 child: Container(
                   padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      color: Colors.black, shape: BoxShape.circle),
                   child: const Icon(
                     Iconsax.arrow_swap_horizontal,
                     color: Colors.white,
                     size: 15,
-                  ),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle
                   ),
                 ),
               )
