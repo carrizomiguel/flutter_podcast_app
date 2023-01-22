@@ -40,12 +40,14 @@ class _PlayerContentState extends State<PlayerContent> {
   Duration duration = const Duration(seconds: 1);
   Duration position = const Duration(seconds: 0);
   Duration empty = const Duration(hours: -286, minutes: -53, seconds: -18);
+  late final audioPlayer;
 
   @override
   void initState() {
     super.initState();
+    audioPlayer = audioPlayer;
     _getDuration();
-    widget.appBloc.audioPlayer.onAudioPositionChanged.listen((event) {
+    audioPlayer.onPositionChanged.listen((event) {
       if (mounted) {
         setState(() {
           position = event;
@@ -55,20 +57,21 @@ class _PlayerContentState extends State<PlayerContent> {
   }
 
   _getDuration() async {
-    double rawDuration = await widget.appBloc.audioPlayer.getDuration() / 1000;
-    Duration parsedDurtion = Duration(seconds: (rawDuration).round());
-    final hasDuration = parsedDurtion.compareTo(empty) != 0 ? true : false;
+    final audioDuration = (await audioPlayer.getDuration())?.inSeconds;
+    double rawDuration = (audioDuration ?? 0) / 1000;
+    Duration parsedDuration = Duration(seconds: (rawDuration).round());
+    final hasDuration = parsedDuration.compareTo(empty) != 0 ? true : false;
     if (mounted && hasDuration) {
       setState(() {
-        duration = parsedDurtion;
+        duration = parsedDuration;
       });
     }
   }
 
   @override
   void dispose() {
-    widget.appBloc.audioPlayer.onDurationChanged.drain();
-    widget.appBloc.audioPlayer.onAudioPositionChanged.drain();
+    audioPlayer.onDurationChanged.drain();
+    audioPlayer.onPositionChanged.drain();
     super.dispose();
   }
 
@@ -145,7 +148,7 @@ class _PlayerContentState extends State<PlayerContent> {
                   max: duration.inSeconds.toDouble(),
                   onChanged: (value) {
                     final parsed = Duration(seconds: value.round());
-                    widget.appBloc.audioPlayer.seek(parsed);
+                    audioPlayer.seek(parsed);
                   },
                   activeColor: kPrimaryColor,
                 ),
