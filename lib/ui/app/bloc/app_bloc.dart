@@ -57,7 +57,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       episode: event.episode,
       episodeStatus: EpisodeStatus.playing,
     ));
-    audioPlayer.play(event.episode.audio);
+    audioPlayer.play(UrlSource(event.episode.audio));
   }
 
   void _onEpisodePaused(
