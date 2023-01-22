@@ -18,10 +18,15 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appBloc = context.read<AppBloc>();
+
     return Hero(
       tag: model.id,
       child: Card(
         elevation: 3,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: SizedBox(
           width: 170,
           child: Column(
@@ -35,34 +40,6 @@ class CardItem extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // Expanded(
-                    //   flex: 4,
-                    //   child: GestureDetector(
-                    //     onTap: () => showModalBottomSheet(
-                    //       context: context,
-                    //       builder: (_) {
-                    //         appBloc.add(AppPodcastSelected(
-                    //           podcast: model,
-                    //         ));
-                    //         return DetailPage(
-                    //           idPodcast: model.id,
-                    //         );
-                    //       },
-                    //     ),
-                    //     child: Container(
-                    //       padding: const EdgeInsets.all(10.0),
-                    //       child: const Icon(
-                    //         Iconsax.play,
-                    //         size: 20,
-                    //         color: Colors.white,
-                    //       ),
-                    //       decoration: const BoxDecoration(
-                    //         color: kPrimaryColor,
-                    //         shape: BoxShape.circle,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     Expanded(
                       flex: 4,
                       child: OpenContainer(
@@ -79,14 +56,14 @@ class CardItem extends StatelessWidget {
                         },
                         closedBuilder: (context, action) => Container(
                           padding: const EdgeInsets.all(10.0),
+                          decoration: const BoxDecoration(
+                            color: kPrimaryColor,
+                            shape: BoxShape.circle,
+                          ),
                           child: const Icon(
                             Iconsax.play,
                             size: 20,
                             color: Colors.white,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: kPrimaryColor,
-                            shape: BoxShape.circle,
                           ),
                         ),
                       ),
@@ -121,8 +98,6 @@ class CardItem extends StatelessWidget {
             ],
           ),
         ),
-        clipBehavior: Clip.hardEdge,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
   }

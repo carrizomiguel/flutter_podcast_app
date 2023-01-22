@@ -29,12 +29,12 @@ class CustomAppBar extends StatelessWidget {
           const Spacer(),
           Container(
             padding: const EdgeInsets.all(8.0),
-            child: const Icon(
-              Iconsax.notification,
-            ),
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10)
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Icon(
+              Iconsax.notification,
             ),
           ),
           const SizedBox(

@@ -24,6 +24,7 @@ class ListItem extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
+            borderRadius: BorderRadius.circular(20),
             child: Hero(
               tag: model.thumbnail,
               child: Image.network(
@@ -31,7 +32,6 @@ class ListItem extends StatelessWidget {
                 height: 100,
               ),
             ),
-            borderRadius: BorderRadius.circular(20),
           ),
           const SizedBox(
             width: 15,
@@ -69,7 +69,8 @@ class ListItem extends StatelessWidget {
             middleColor: Colors.white,
             transitionType: ContainerTransitionType.fadeThrough,
             openBuilder: (_, action) {
-              context.read<AppBloc>().add(AppPodcastSelected(
+              final appBloc = context.read<AppBloc>();
+              appBloc.add(AppPodcastSelected(
                 podcast: model,
               ));
               return DetailPage(
@@ -78,14 +79,14 @@ class ListItem extends StatelessWidget {
             },
             closedBuilder: (context, action) => Container(
               padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                shape: BoxShape.circle,
+              ),
               child: const Icon(
                 Iconsax.play,
                 size: 20,
                 color: kPrimaryColor,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                shape: BoxShape.circle,
               ),
             ),
           ),

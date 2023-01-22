@@ -52,9 +52,10 @@ class EpisodesElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<AppBloc>().add(AppEpisodeSelected(
-              episode: episode,
-            ));
+        final appBloc = context.read<AppBloc>();
+        appBloc.add(AppEpisodeSelected(
+          episode: episode,
+        ));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(
@@ -97,17 +98,17 @@ class EpisodesElement extends StatelessWidget {
                     visible: episode.explicitContent,
                     child: Container(
                       padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade400,
+                          width: 1.5,
+                        ),
+                      ),
                       child: Text(
                         'Explicit',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey.shade400,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.shade400,
-                          width: 1.5,
                         ),
                       ),
                     ),

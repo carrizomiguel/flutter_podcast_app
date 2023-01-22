@@ -55,9 +55,10 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
 
     return GestureDetector(
       onTap: () {
-        context.read<AppBloc>().add(const AppRouteChangedTo(
-              route: AppRouteStatus.player,
-            ));
+        final appBloc = context.read<AppBloc>();
+        appBloc.add(const AppRouteChangedTo(
+          route: AppRouteStatus.player,
+        ));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(
@@ -68,6 +69,9 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
           elevation: 5,
           margin: const EdgeInsets.only(
             bottom: 10,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
             padding: const EdgeInsets.all(15),
@@ -109,11 +113,12 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
                     final isPaused = state.episodeStatus == EpisodeStatus.pause;
                     return IconButton(
                       onPressed: () {
-                        context.read<AppBloc>().add(
-                              AppEpisodePaused(
-                                isPaused: !isPaused,
-                              ),
-                            );
+                        final appBloc = context.read<AppBloc>();
+                        appBloc.add(
+                          AppEpisodePaused(
+                            isPaused: !isPaused,
+                          ),
+                        );
                       },
                       icon: Icon(
                         isPaused ? Iconsax.play : Iconsax.pause,
@@ -123,9 +128,6 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
                 )
               ],
             ),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
           ),
         ),
       ),

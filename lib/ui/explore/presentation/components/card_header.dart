@@ -16,7 +16,7 @@ class CardHeader extends StatelessWidget {
           ),
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40)
+              borderRadius: BorderRadius.circular(40),
             ),
             color: kSecondaryColor,
             child: Container(
@@ -48,12 +48,14 @@ class CardHeader extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(
                       Iconsax.headphone,
                       color: kSecondaryColor,
                     ),
-                    decoration: const BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
                   )
                 ],
               ),

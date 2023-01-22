@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -40,12 +41,12 @@ class _PlayerContentState extends State<PlayerContent> {
   Duration duration = const Duration(seconds: 1);
   Duration position = const Duration(seconds: 0);
   Duration empty = const Duration(hours: -286, minutes: -53, seconds: -18);
-  late final audioPlayer;
+  late final AudioPlayer audioPlayer;
 
   @override
   void initState() {
     super.initState();
-    audioPlayer = audioPlayer;
+    audioPlayer = widget.appBloc.audioPlayer;
     _getDuration();
     audioPlayer.onPositionChanged.listen((event) {
       if (mounted) {

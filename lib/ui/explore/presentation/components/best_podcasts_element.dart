@@ -53,14 +53,14 @@ class BestPodcastsElement extends StatelessWidget {
         const SizedBox(width: 10),
         Container(
           padding: const EdgeInsets.all(10.0),
+          decoration: const BoxDecoration(
+            color: kPrimaryColor,
+            shape: BoxShape.circle,
+          ),
           child: const Icon(
             Iconsax.play,
             size: 20,
             color: Colors.white,
-          ),
-          decoration: const BoxDecoration(
-            color: kPrimaryColor,
-            shape: BoxShape.circle,
           ),
         ),
       ],
