@@ -33,7 +33,7 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
         });
       }
     });
-    widget.appBloc.audioPlayer.onAudioPositionChanged.listen((event) {
+    widget.appBloc.audioPlayer.onPositionChanged.listen((event) {
       if (mounted) {
         setState(() {
           position = event.inSeconds;
@@ -45,7 +45,7 @@ class _FooterPlayerAppState extends State<FooterPlayerApp> {
   @override
   void dispose() {
     widget.appBloc.audioPlayer.onDurationChanged.drain();
-    widget.appBloc.audioPlayer.onAudioPositionChanged.drain();
+    widget.appBloc.audioPlayer.onPositionChanged.drain();
     super.dispose();
   }
 
