@@ -31,15 +31,22 @@ class ExploreRepositoryImpl implements ExploreRepository {
   ) async {
     if (await networkInfo.isConnected) {
       try {
-        final remote = await remoteDataSource.getBestPodcastsByGenre(idGenre);
-        await localDataSource.cacheLastBestPodcasts(remote);
-        return Result.ok(remote);
-      } on WrongApiKeyException {
-        return Result.err(WrongApiKeyFailure());
-      } on FreePlanExceededException {
-        return Result.err(FreePlanExceededFailure());
-      } on ServerException {
-        return Result.err(ServerFailure());
+        final local = await localDataSource.getLastBestPodcasts(idGenre);
+        return Result.ok(local);
+      } on EmptyException {
+        return Result.err(EmptyFailure());
+      } on CacheException {
+        try {
+          final remote = await remoteDataSource.getBestPodcastsByGenre(idGenre);
+          await localDataSource.cacheLastBestPodcasts(remote);
+          return Result.ok(remote);
+        } on WrongApiKeyException {
+          return Result.err(WrongApiKeyFailure());
+        } on FreePlanExceededException {
+          return Result.err(FreePlanExceededFailure());
+        } on ServerException {
+          return Result.err(ServerFailure());
+        }
       }
     } else {
       try {

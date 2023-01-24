@@ -26,15 +26,20 @@ class HomeRepositoryImpl implements HomeRepository {
       getSelectedPodcasts() async {
     if (await networkInfo.isConnected) {
       try {
-        final remote = await remoteDataSource.getSelectedPodcasts();
-        await localDataSource.cacheLastSelectedPodcastsList(remote);
-        return Result.ok(remote);
-      } on WrongApiKeyException {
-        return Result.err(WrongApiKeyFailure());
-      } on FreePlanExceededException {
-        return Result.err(FreePlanExceededFailure());
-      } on ServerException {
-        return Result.err(ServerFailure());
+        final local = await localDataSource.getLastSelectedPodcastsList();
+        return Result.ok(local);
+      } on CacheException {
+        try {
+          final remote = await remoteDataSource.getSelectedPodcasts();
+          await localDataSource.cacheLastSelectedPodcastsList(remote);
+          return Result.ok(remote);
+        } on WrongApiKeyException {
+          return Result.err(WrongApiKeyFailure());
+        } on FreePlanExceededException {
+          return Result.err(FreePlanExceededFailure());
+        } on ServerException {
+          return Result.err(ServerFailure());
+        }
       }
     } else {
       try {
