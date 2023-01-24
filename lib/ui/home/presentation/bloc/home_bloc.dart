@@ -25,13 +25,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final result = await repository.getSelectedPodcasts();
     result.when(
       ok: (list) {
-        for (var selected in list) {
-          selected.podcasts.removeWhere(
-            (e) =>
-                e.id == '4147be1001cc4254bc2d660ae4cad6c4' ||
-                e.id == 'd620156577fe4408972a29aa2675e628',
-          );
-        }
         selectedPodcasts = list;
         emit(HomeSuccess());
       },
