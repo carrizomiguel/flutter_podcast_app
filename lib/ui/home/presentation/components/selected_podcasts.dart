@@ -21,7 +21,7 @@ class SelectedPodcasts extends StatelessWidget {
             child: CustomAppBar(),
           ),
           for (var selected in selectedList) ...[
-            if (selected.podcasts.length >= 5) ...[
+            if (selectedList.indexOf(selected).isEven) ...[
               SectionTitle(selected: selected),
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -32,10 +32,10 @@ class SelectedPodcasts extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(
-                            left: index == 0 ? 20 : 0,
-                            right: index == (selected.podcasts.length - 1)
-                                ? 20
-                                : 0),
+                          left: index == 0 ? 20 : 0,
+                          right:
+                              index == (selected.podcasts.length - 1) ? 20 : 0,
+                        ),
                         child: CardItem(
                           model: selected.podcasts[index],
                         ),
