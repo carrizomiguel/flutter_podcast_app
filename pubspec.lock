@@ -261,6 +261,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
+    version: "0.6.4"
   lints:
     dependency: transitive
     description:
@@ -468,6 +469,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "2.1.2"
     version: "2.1.2"
   win32:
     dependency: transitive
