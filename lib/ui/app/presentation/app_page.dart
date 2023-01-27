@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podcast_app/ui/app/bloc/app_bloc.dart';
 import 'package:podcast_app/ui/app/presentation/routes/player_routes.dart';
-import 'package:podcast_app/ui/app/presentation/routes/routes.dart';
+import 'package:podcast_app/ui/explore/explore.dart';
+import 'package:podcast_app/ui/favorites/favorites.dart';
+import 'package:podcast_app/ui/home/home.dart';
 import 'package:podcast_app/ui/player/presentation/footer_player_app.dart';
 import 'package:podcast_app/ui/shared/widgets/bottom_nav_bar/bottom_nav_bar.dart';
 
@@ -47,14 +49,24 @@ class AppContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBloc = context.read<AppBloc>();
+
+    Widget switchScreens(AppPageStatus status) {
+      switch (status) {
+        case AppPageStatus.home:
+          return const HomePage();
+        case AppPageStatus.explore:
+          return const ExplorePage();
+        case AppPageStatus.favorites:
+          return const FavoritesPage();
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          FlowBuilder(
-            state: context.select((AppBloc bloc) => bloc.state),
-            onGeneratePages: onGenerateAppPages,
-          ),
+          switchScreens(appBloc.state.pageStatus),
           Positioned(
             bottom: 0,
             child: BlocBuilder<AppBloc, AppState>(
