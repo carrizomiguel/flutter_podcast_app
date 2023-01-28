@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:podcast_app/ui/home/models/selected_postcasts_model.dart';
-import 'package:podcast_app/ui/home/presentation/components/card_item.dart';
-import 'package:podcast_app/ui/home/presentation/components/list_item.dart';
+import 'package:podcast_app/ui/home/home.dart';
 import 'package:podcast_app/ui/shared/widgets/custom_app_bar/custom_app_bar.dart';
 
 class SelectedPodcasts extends StatelessWidget {

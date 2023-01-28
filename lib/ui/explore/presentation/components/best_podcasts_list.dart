@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:podcast_app/ui/explore/presentation/bloc/explore_bloc.dart';
-import 'package:podcast_app/ui/explore/presentation/components/best_podcasts_element.dart';
+import 'package:podcast_app/ui/explore/explore.dart';
 import 'package:podcast_app/ui/shared/constants.dart';
 
 class BestPodcastsList extends StatelessWidget {

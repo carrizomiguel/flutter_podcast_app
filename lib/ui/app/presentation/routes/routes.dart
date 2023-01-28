@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:podcast_app/ui/app/bloc/app_bloc.dart';
+import 'package:podcast_app/ui/app/app.dart';
 import 'package:podcast_app/ui/explore/explore.dart';
 import 'package:podcast_app/ui/favorites/favorites.dart';
 import 'package:podcast_app/ui/home/home.dart';

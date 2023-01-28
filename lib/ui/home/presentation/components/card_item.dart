@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:podcast_app/ui/app/bloc/app_bloc.dart';
+import 'package:podcast_app/ui/app/app.dart';
 import 'package:podcast_app/ui/detail/detail.dart';
 import 'package:podcast_app/ui/shared/constants.dart';
 import 'package:podcast_app/ui/shared/models/podcasts.dart';

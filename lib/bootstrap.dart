@@ -5,15 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:podcast_app/core/network/network_info.dart';
 import 'package:podcast_app/core/storage/storage.dart';
-import 'package:podcast_app/ui/detail/data/datasources/detail_local_data_source.dart';
-import 'package:podcast_app/ui/detail/data/datasources/detail_remote_data_source.dart';
-import 'package:podcast_app/ui/detail/data/repositories/detail_repository.dart';
-import 'package:podcast_app/ui/explore/data/datasources/explore_local_data_source.dart';
-import 'package:podcast_app/ui/explore/data/datasources/explore_remote_data_source.dart';
-import 'package:podcast_app/ui/explore/data/repositories/explore_repository.dart';
-import 'package:podcast_app/ui/home/data/datasources/home_local_data_source.dart';
-import 'package:podcast_app/ui/home/data/datasources/home_remote_data_source.dart';
-import 'package:podcast_app/ui/home/data/repositories/home_repository.dart';
+import 'package:podcast_app/ui/detail/detail.dart';
+import 'package:podcast_app/ui/explore/explore.dart';
+import 'package:podcast_app/ui/home/home.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override

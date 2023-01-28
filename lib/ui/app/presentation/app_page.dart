@@ -1,12 +1,11 @@
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:podcast_app/ui/app/bloc/app_bloc.dart';
-import 'package:podcast_app/ui/app/presentation/routes/player_routes.dart';
+import 'package:podcast_app/ui/app/app.dart';
 import 'package:podcast_app/ui/explore/explore.dart';
 import 'package:podcast_app/ui/favorites/favorites.dart';
 import 'package:podcast_app/ui/home/home.dart';
-import 'package:podcast_app/ui/player/presentation/footer_player_app.dart';
+import 'package:podcast_app/ui/player/player.dart';
 import 'package:podcast_app/ui/shared/widgets/bottom_nav_bar/bottom_nav_bar.dart';
 
 class AppPage extends StatelessWidget {
